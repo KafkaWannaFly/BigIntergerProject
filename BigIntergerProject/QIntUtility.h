@@ -1,7 +1,26 @@
 ﻿#pragma once
+#include <map>
 #include "Misc.h"
 
 using namespace std;
+
+enum exceptionKey
+{
+	WRONG_BASE,
+	UNHANDLED_CHARACTER
+};
+/*
+	Từ điển exception. Cần throw cái gì thì vô đây xem. Nếu chưa có thì tạo thêm. 
+*/
+static map<int, string> s_ExceptionsDictionary
+{
+	{
+		exceptionKey::WRONG_BASE, "Exception: Wrong-base input! We only work with binary, decimal, hexadecimal number."
+	},
+	{
+		exceptionKey::UNHANDLED_CHARACTER, "Exception: We have found an unhandled character!"
+	}
+};
 
 //Chuyển từ hệ 10 sang 2. Bit 0 nằm ở đầu string
 //[Input] num: 1 số hệ 10 ở dạng chuỗi
@@ -14,3 +33,4 @@ void numToRBits(const std::string& num, string& bits);
 	[Output]: bits: kết quả sau khi xử lý
 */
 void binaryTwoComplements(bitset<128>& bits);
+

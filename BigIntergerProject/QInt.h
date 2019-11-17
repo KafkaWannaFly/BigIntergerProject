@@ -12,7 +12,6 @@ private:
 	bitset<128> m_bits;
 public:
 	QInt();
-	//QInt(const string& _num);
 	QInt(const string& _num, const int& base = 10);
 	
 	string getBits();

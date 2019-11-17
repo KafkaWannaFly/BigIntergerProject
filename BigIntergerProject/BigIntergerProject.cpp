@@ -7,11 +7,23 @@ using namespace std;
 
 int main()
 {
-	QInt pos("1686452", 10);
-	QInt neg("-1598047", 10);
+	try
+	{
+		/*QInt pos("1686452", 10);
+		QInt neg("-1598047", 10);
 
-	cout << "Pos: " << pos.getHexa() << endl;
-	cout << "Neg: " << neg.getHexa() << endl;
+		cout << "Pos: " << pos.getHexa() << endl;
+		cout << "Neg: " << neg.getHexa() << endl;*/
 
-	return 0;
+		QInt hex("3D4Y", 169);
+		cout << hex.getBits();
+
+		return 0;
+
+	}
+	catch (const std::exception&e)
+	{
+		cout << e.what();
+	}
+	
 }

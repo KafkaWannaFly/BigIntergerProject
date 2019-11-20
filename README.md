@@ -19,12 +19,12 @@ ISO C++ 17 Standard (std:c++17)
 | Chuyển số từ hệ 10 sang hệ 2         | Dương     |
 | Chuyển số từ hệ 2 sang hệ 10         | Hoàng     |
 | Chuyển số từ 16 sang 2 và ngược lại  | Dương     |
-| Chuyển số từ 10 sang 16 và ngược lại |           |
-| Operator = + - \* /         |           |
-| Toán tử AND, OR, XOR, NOT |           |
-| Dịch trái dịch phải số học ||
-| Xoay trái xoay phải cho 1 bit |           |
-| Đọc/Xuất file | |
+| Chuyển số từ 10 sang 16 và ngược lại | Hoàng |
+| Operator = + - \* /         | Hoàng (ft. Dương) |
+| Toán tử AND, OR, XOR, NOT | Dương |
+| Dịch trái dịch phải số học |Dương|
+| Xoay trái xoay phải cho 1 bit | Dương |
+| Đọc/Xuất file | Dương |
 
 ----
 

@@ -48,5 +48,6 @@ unsuccessbuild
 ProjectSettings.json
 \.vs
 \Debug
+\Release
 \x64
 CppProperties.json

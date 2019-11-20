@@ -9,14 +9,19 @@ int main()
 {
 	try
 	{
-		/*QInt pos("1686452", 10);
+		QInt pos("1686452", 10);
 		QInt neg("-1598047", 10);
 
-		cout << "Pos: " << pos.getHexa() << endl;
-		cout << "Neg: " << neg.getHexa() << endl;*/
+		cout << "Pos: " << pos.getBits() << endl;
+		cout << "Neg: " << neg.getBits() << endl;
 
-		QInt hex("8793278316383117319", 10);
-		cout << hex.getBits();
+		//cout << "(Pos & Neg): " << (pos & neg).getBits() << endl;
+		//cout << "!Neg: " << (!neg).getBits() << endl;
+
+		//cout << "Shift right: " << (neg >> 5) << endl;
+		//cout << "pos[127]: " << pos[pos.getSize()-1] << endl;
+
+		cout << "Compare: " << (pos>neg) << endl;
 
 		return 0;
 

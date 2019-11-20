@@ -5,6 +5,11 @@ QInt::QInt()
 	this->m_bits = 0;
 }
 
+QInt::QInt(const bitset<128>& bits)
+{
+	this->m_bits = bits;
+}
+
 QInt::QInt(const string& _num, const int& base)
 {
 	if (base == 2)
@@ -119,4 +124,157 @@ string QInt::getHexa()
 	std::reverse(output.begin(), output.end());
 	output = ltrim(output, '0');
 	return output;
+}
+
+size_t QInt::getSize()
+{
+	return this->m_bits.size();
+}
+
+void QInt::rotateLeft(const unsigned int& num)
+{
+	this->m_bits = (this->m_bits << num) | (this->m_bits >> (128 - num));
+}
+
+void QInt::rotateRight(const unsigned int& num)
+{
+	this->m_bits = (this->m_bits >> num) | (this->m_bits << (128 - num));
+}
+
+QInt QInt::operator&(const QInt& qNum)
+{
+	return QInt(this->m_bits & qNum.m_bits);
+}
+
+QInt QInt::operator|(const QInt& qNum)
+{
+	return QInt(this->m_bits|qNum.m_bits);
+}
+
+QInt QInt::operator^(const QInt& qNum)
+{
+	return QInt(this->m_bits^qNum.m_bits);
+}
+
+QInt QInt::operator!()
+{
+	return QInt(this->m_bits.flip());
+}
+
+QInt QInt::operator<<(const unsigned int& num)
+{
+	return QInt(this->m_bits<<num);
+}
+
+QInt QInt::operator>>(const unsigned int& num)
+{
+	return QInt(this->m_bits>>num);
+}
+
+bool QInt::operator[](const unsigned int& index)
+{
+	if (index >= this->m_bits.size())
+	{
+		throw exception(s_ExceptionsDictionary[exceptionKey::INDEX_OUT_OF_BOUND].c_str());
+	}
+
+	return this->m_bits[index];
+}
+
+bool QInt::operator>(const QInt& qNum)
+{
+	if (this->m_bits[this->m_bits.size() - 1] < qNum.m_bits[this->m_bits.size() - 1])
+		return true;
+	else if (this->m_bits[this->m_bits.size() - 1] > qNum.m_bits[this->m_bits.size() - 1])
+		return false;
+
+	bool switcher;
+	for (int i = 0; i < this->m_bits.size() - 1; i++)
+	{
+		if (this->m_bits[i] > qNum.m_bits[i])
+			switcher = true;
+		else
+			switcher = false;
+	}
+	return switcher;
+}
+
+bool QInt::operator<(const QInt& qNum)
+{
+	if (this->m_bits[this->m_bits.size() - 1] < qNum.m_bits[this->m_bits.size() - 1])
+		return false;
+	else if (this->m_bits[this->m_bits.size() - 1] > qNum.m_bits[this->m_bits.size() - 1])
+		return true;
+
+	bool switcher;
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		if (this->m_bits[i] > qNum.m_bits[i])
+			switcher = false;
+		else
+			switcher = true;
+	}
+	return switcher;
+}
+
+bool QInt::operator!=(const QInt& qNum)
+{
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		if (this->m_bits[i] != qNum.m_bits[i])
+			return true;
+	}
+	return false;
+}
+
+bool QInt::operator==(const QInt& qNum)
+{
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		if (this->m_bits[i] != qNum.m_bits[i])
+			return false;
+	}
+	return true;
+}
+
+bool QInt::operator>=(const QInt& qNum)
+{
+	if (this->m_bits[this->m_bits.size() - 1] < qNum.m_bits[this->m_bits.size() - 1])
+		return true;
+	else if (this->m_bits[this->m_bits.size() - 1] > qNum.m_bits[this->m_bits.size() - 1])
+		return false;
+
+	bool switcher;
+	for (int i = 0; i < this->m_bits.size() - 1; i++)
+	{
+		if (this->m_bits[i] >= qNum.m_bits[i])
+			switcher = true;
+		else
+			switcher = false;
+	}
+	return switcher;
+}
+
+bool QInt::operator<=(const QInt& qNum)
+{
+	if (this->m_bits[this->m_bits.size() - 1] < qNum.m_bits[this->m_bits.size() - 1])
+		return false;
+	else if (this->m_bits[this->m_bits.size() - 1] > qNum.m_bits[this->m_bits.size() - 1])
+		return true;
+
+	bool switcher;
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		if (this->m_bits[i] >= qNum.m_bits[i])
+			switcher = false;
+		else
+			switcher = true;
+	}
+	return switcher;
+}
+
+ostream& operator<<(ostream& out, const QInt& qNum)
+{
+	out << qNum.m_bits;
+	return out;
 }

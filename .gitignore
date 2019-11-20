@@ -32,9 +32,6 @@
 *.app
 
 # Visual Studio File 
-*.sln
-*.vcxproj
-*.users
 *.suo
 *.db
 *.slnx
@@ -46,7 +43,6 @@
 *.lastbuildstate
 *.idb
 *.pdb
-*.filters
 *.ilk
 unsuccessbuild
 ProjectSettings.json

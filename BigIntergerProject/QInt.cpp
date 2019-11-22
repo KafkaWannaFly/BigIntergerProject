@@ -10,11 +10,18 @@ QInt::QInt(const bitset<128>& bits)
 	this->m_bits = bits;
 }
 
+QInt::QInt(const string & bits)
+{
+	bitset<128> bit(bits);
+	this->m_bits = bit;
+}
+
 QInt::QInt(const string& _num, const int& base)
 {
 	if (base == 2)
 	{
-		cout << "Is on construction" << endl;
+		/*cout << "Is on construction" << endl;*/
+
 	}
 	else if (base == 10)
 	{
@@ -126,6 +133,13 @@ string QInt::getHexa()
 	return output;
 }
 
+string QInt::getDecimal()
+{
+	string output;
+	Convert_Binary_Decimal(output, this->m_bits.to_string());
+	return output;
+}
+
 size_t QInt::getSize()
 {
 	return this->m_bits.size();
@@ -139,6 +153,51 @@ void QInt::rotateLeft(const unsigned int& num)
 void QInt::rotateRight(const unsigned int& num)
 {
 	this->m_bits = (this->m_bits >> num) | (this->m_bits << (128 - num));
+}
+
+QInt & QInt::operator=(const QInt & qNum)
+{
+	this->m_bits = qNum.m_bits;
+	return *this;
+}
+
+QInt QInt::operator+(const QInt & qNum)
+{
+	QInt sum;
+	bool carry = 0;
+	//0110
+	//1101
+	//0011
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		int tmp = this->m_bits[i] + qNum.m_bits[i] + carry;
+		carry = tmp / 2;
+		sum.m_bits[i] = tmp % 2; 
+	}
+	return sum;
+}
+
+QInt QInt::operator-(const QInt & qNum)
+{
+	bitset<128> twoComplement(qNum.m_bits);
+	binaryTwoComplements(twoComplement);
+	QInt contrastQNum(twoComplement);
+
+	return (*this+ contrastQNum);
+}
+
+QInt QInt::operator*(const QInt & qNum)
+{
+	QInt result = *this;
+	QInt one(bitset<128>(1));
+	QInt selfPlus = qNum;
+
+	while (selfPlus.getBits() != "0")
+	{
+		result = result + result;
+		selfPlus = selfPlus - one;
+	}
+	return result;
 }
 
 QInt QInt::operator&(const QInt& qNum)

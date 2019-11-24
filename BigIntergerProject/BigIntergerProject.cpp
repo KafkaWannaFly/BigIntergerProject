@@ -9,11 +9,11 @@ int main()
 {
 	try
 	{
-		QInt pos("1686452", 10);
-		QInt neg("-1598047", 10);
+		QInt pos("55", 10);
+		QInt neg("-33", 10);
 
-		cout << "Pos: " << pos.getBits() << endl;
-		cout << "Neg: " << neg.getBits() << endl;
+		cout << "Pos: " << pos << endl;
+		cout << "Neg: " << neg << endl;
 
 		//cout << "(Pos & Neg): " << (pos & neg).getBits() << endl;
 		//cout << "!Neg: " << (!neg).getBits() << endl;
@@ -21,8 +21,14 @@ int main()
 		//cout << "Shift right: " << (neg >> 5) << endl;
 		//cout << "pos[127]: " << pos[pos.getSize()-1] << endl;
 
-		cout << "Compare: " << (pos>neg) << endl;
+		//cout << "Compare: " << (pos>neg) << endl;
 
+		cout << "Sum: "<< (pos + neg).getDecimal() << endl;
+		//cout << "Sub: " << (pos - neg).getDecimal() << endl;
+
+		QInt Multi = pos * neg;
+		cout << "Muli: " << Multi.getDecimal() << endl;
+	
 		return 0;
 
 	}

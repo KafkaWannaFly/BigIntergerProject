@@ -41,3 +41,6 @@ void numToRBits(const std::string& num, string& bits);
 */
 void binaryTwoComplements(bitset<128>& bits);
 
+void Convert_Binary_Decimal(string &Dec, const string& Bits);
+void Sum_String2(string &s1, const string& s2);
+

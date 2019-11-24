@@ -13,6 +13,7 @@ private:
 public:
 	QInt();
 	QInt(const bitset<128>& bits);
+	QInt(const string& bits);
 	QInt(const string& _num, const int& base = 10);
 	
 	//Getter
@@ -29,7 +30,7 @@ public:
 	QInt& operator=(const QInt& qNum);
 	QInt operator+(const QInt& qNum);
 	QInt operator-(const QInt& qNum);
-	QInt operator*(const QInt& qNum);
+	QInt operator*(QInt& qNum);
 	QInt operator/(const QInt& qNum);
 
 	QInt operator&(const QInt& qNum);

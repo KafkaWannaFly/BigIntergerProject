@@ -2,6 +2,7 @@
 #include <string>
 #include "Misc.h"
 #include "QInt.h"
+#include "QFile.h"
 
 using namespace std;
 
@@ -9,11 +10,52 @@ int main()
 {
 	try
 	{
-		QInt pos("5", 10);
-		QInt neg("3", 10);
+		/*QInt pos("51020811559739511523931749439", 10);
+		QInt neg("-2648426894534587", 10);
 
-		cout << "Pos: " << pos << endl;
-		cout << "Neg: " << neg << endl;
+		cout << "v1 = " << pos << endl;
+		cout << "v2 = " << neg << endl;
+
+		cout << ">DECIMAL" << endl;
+		cout << "v1 = " << pos.getDecimal() << endl;
+		cout << "v2 = " << neg.getDecimal() << endl;
+
+		cout << ">HEXA-DECIMAL" << endl;
+		cout << "v1 = " << pos.getHexaDecimal() << endl;
+		cout << "v2 = " << neg.getHexaDecimal() << endl;*/
+
+		/*pos.rotateRight(1);
+		cout << "v1 ror 1 = \n   " << pos << endl;
+		neg.rotateLeft(1);
+		cout << "v2 rol 1 = \n   " << neg << endl;*/
+
+		/*cout << "v1 SHL 5:\n   " << (pos << 5).getBits() << endl;
+		cout << "v1 SHR 5:\n   " << (pos >> 5).getBits() << endl;
+
+		cout << "v2 SHL 5:\n   " << (neg << 5).getBits() << endl;
+		cout << "v2 SHR 5:\n   " << (neg >> 5).getBits() << endl;*/
+
+		/*cout << "(v1 AND v2) = \n   " << (pos & neg).getBits() << endl;
+		cout << "(v1 OR v2) = \n   " << (pos | neg).getBits() << endl;
+		cout << "(v1 XOR v2) = \n   " << (pos ^ neg).getBits() << endl;
+
+		cout << "(NOT v1) = \n   " << (!pos).getBits() << endl;
+		pos.doTwoComplements();
+		cout << "v1 two complements = \n   " << pos.getBits() << endl;
+
+		cout << "(NOT v2) = \n   " << (!neg).getBits() << endl;
+		neg.doTwoComplements();
+		cout << "v2 two complements = \n   " << neg.getBits() << endl;*/
+
+		//QInt sum = pos + neg;
+		//QInt sub = pos - neg;
+		//QInt divide = pos / neg;
+
+		//cout << "Sum: " << sum.getDecimal() << endl;
+		//cout << "Sub: " << sub.getDecimal() << endl;
+		////cout << "Muli: " << (pos*neg).getDecimal() << endl;
+		//cout << "Divide: " << divide.getDecimal() << endl;
+
 
 		//cout << "(Pos & Neg): " << (pos & neg).getBits() << endl;
 		//cout << "!Neg: " << (!neg).getBits() << endl;
@@ -23,17 +65,17 @@ int main()
 
 		//cout << "Compare: " << (pos>neg) << endl;
 
-		QInt sum = pos + neg;
-		cout << "Sum: "<<sum.getDecimal() << endl;
-		cout << "Sub: " << (pos - neg).getDecimal() << endl;
-		cout << "Muli: " << (pos*neg).getDecimal() << endl;
-	
+
+		QFile file;
+		file.readInputTXT("input.txt");
+		file.saveOutputTXT("output.txt");
+		//string tmp = QFile::processRecord(file[92]);
 		return 0;
 
 	}
-	catch (const std::exception&e)
+	catch (const std::exception & e)
 	{
 		cout << e.what();
 	}
-	
+
 }

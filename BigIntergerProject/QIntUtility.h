@@ -8,24 +8,39 @@ enum exceptionKey
 {
 	WRONG_BASE,
 	UNHANDLED_CHARACTER,
-	INDEX_OUT_OF_BOUND
+	INDEX_OUT_OF_BOUND,
+	CANT_OPEN_FILE,
+	DIVIDE_ZERO,
+	UNHANDLED_INPUT,
 };
 /*
-	Từ điển exception. Cần throw cái gì thì vô đây xem. Nếu chưa có thì tạo thêm. 
+	Từ điển exception. Cần throw cái gì thì vô đây xem. Nếu chưa có thì tạo thêm.
 */
-static map<int, string> s_ExceptionsDictionary
+static map<int, string> sExceptionsDictionary
 {
 	{
-		exceptionKey::WRONG_BASE, 
+		exceptionKey::WRONG_BASE,
 		"Exception: Wrong-base input! We only work with binary, decimal, hexadecimal number."
 	},
 	{
-		exceptionKey::UNHANDLED_CHARACTER, 
+		exceptionKey::UNHANDLED_CHARACTER,
 		"Exception: We have found an unhandled character!"
 	},
 	{
-		exceptionKey::INDEX_OUT_OF_BOUND, 
+		exceptionKey::INDEX_OUT_OF_BOUND,
 		"Exception: Index out of bound!"
+	},
+	{
+		exceptionKey::CANT_OPEN_FILE,
+		"Exception: Can't open file!"
+	},
+	{
+		exceptionKey::DIVIDE_ZERO,
+		"Exception: Divide to zero!"
+	},
+	{
+		exceptionKey::UNHANDLED_INPUT,
+		"Exception: Unhandled input values!"
 	},
 };
 
@@ -41,6 +56,6 @@ void numToRBits(const std::string& num, string& bits);
 */
 void binaryTwoComplements(bitset<128>& bits);
 
-void Convert_Binary_Decimal(string &Dec, const string& Bits);
-void Sum_String2(string &s1, const string& s2);
+void Convert_Binary_Decimal(string& Dec, const string& Bits);
+void Sum_String2(string& s1, const string& s2);
 

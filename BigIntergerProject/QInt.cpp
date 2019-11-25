@@ -1,4 +1,4 @@
-﻿#include "QInt.h"
+#include"QInt.h"
 
 QInt::QInt()
 {
@@ -179,25 +179,63 @@ QInt QInt::operator+(const QInt & qNum)
 
 QInt QInt::operator-(const QInt & qNum)
 {
+	//if(qNum)
 	bitset<128> twoComplement(qNum.m_bits);
 	binaryTwoComplements(twoComplement);
 	QInt contrastQNum(twoComplement);
 
-	return (*this+ contrastQNum);
+	return (*this + contrastQNum);
 }
 
-QInt QInt::operator*(const QInt & qNum)
+QInt QInt::operator*(QInt& qNum)
 {
-	QInt result = *this;
-	QInt one(bitset<128>(1));
-	QInt selfPlus = qNum;
-
-	while (selfPlus.getBits() != "0")
+	QInt sum;
+	bool carry = 0;
+	QInt n;
+	int k = 0;
+	int check1 = 0,check2 = 0;
+	if (this->m_bits[127] == 1)
 	{
-		result = result + result;
-		selfPlus = selfPlus - one;
+		binaryTwoComplements(this->m_bits);
+		check1 = 1;
 	}
-	return result;
+	if (qNum.m_bits[127] == 1)
+	{
+		binaryTwoComplements(qNum.m_bits);
+		check2 = 2;
+	}
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		if (qNum.m_bits[i] == 1)
+		{
+			n = *this;
+		}
+		else if (qNum.m_bits[i] == 0)
+		{
+			n.m_bits = 0;
+		}
+		int j = 0;
+		for (int i = 0; i < this->m_bits.size(); i++)
+		{
+			if (i >= k)
+			{
+				int tmp = sum.m_bits[i] + n.m_bits[j] + carry;
+				carry = tmp / 2;
+				sum.m_bits[i] = tmp % 2;
+				j++;
+			}
+		}
+		k++;
+	}
+	if (check1 == 1 && check2 == 2)
+	{
+		return sum;
+	}
+	else if (check1 == 1 || check2 == 2)
+	{
+		binaryTwoComplements(sum.m_bits);
+	}
+	return sum;
 }
 
 QInt QInt::operator&(const QInt& qNum)

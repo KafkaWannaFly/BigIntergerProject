@@ -30,7 +30,7 @@ public:
 	QInt& operator=(const QInt& qNum);
 	QInt operator+(const QInt& qNum);
 	QInt operator-(const QInt& qNum);
-	QInt operator*(const QInt& qNum);
+	QInt operator*(QInt& qNum);
 	QInt operator/(const QInt& qNum);
 
 	QInt operator&(const QInt& qNum);

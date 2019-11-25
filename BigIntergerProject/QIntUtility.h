@@ -1,7 +1,7 @@
-﻿#pragma once
+
+#pragma once
 #include <map>
 #include "Misc.h"
-
 using namespace std;
 
 enum exceptionKey
@@ -43,4 +43,3 @@ void binaryTwoComplements(bitset<128>& bits);
 
 void Convert_Binary_Decimal(string &Dec, const string& Bits);
 void Sum_String2(string &s1, const string& s2);
-

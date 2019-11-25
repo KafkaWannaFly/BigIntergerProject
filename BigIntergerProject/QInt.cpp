@@ -1,4 +1,4 @@
-﻿#include "QInt.h"
+#include"QInt.h"
 
 QInt::QInt()
 {
@@ -179,6 +179,7 @@ QInt QInt::operator+(const QInt & qNum)
 
 QInt QInt::operator-(const QInt & qNum)
 {
+	//if(qNum)
 	bitset<128> twoComplement(qNum.m_bits);
 	binaryTwoComplements(twoComplement);
 	QInt contrastQNum(twoComplement);

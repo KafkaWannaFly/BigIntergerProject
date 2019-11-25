@@ -1,5 +1,4 @@
-﻿#include "QIntUtility.h"
-
+#include "QIntUtility.h"
 
 void numToRBits(const std::string& num, string& bits)
 {
@@ -173,13 +172,18 @@ void Subtract_String(string &sub, string s2)
 }
 void Convert_Binary_Decimal(string &Dec, const string& Bits)
 {
+	if (Dec == "0" && Bits == "0")
+	{
+		Dec = "0";
+		return;
+	}
 	int radix1, radix2;
 
 	//loadDataBinaryTxT("input.txt", radix1, radix2);
 
 	vector<string> S_temp;
 	string S1, S2;
-	Split_String(S_temp,Bits);
+	Split_String(S_temp, Bits);
 
 
 	for (int i = 0; i < S_temp.size(); i++)

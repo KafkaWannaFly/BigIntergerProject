@@ -6,10 +6,19 @@
 
 using namespace std;
 
-int main()
+int main(int argu, char** path)
 {
 	try
 	{
+		if (argu < 2)
+		{
+			throw exception(sExceptionsDictionary[exceptionKey::CANT_OPEN_FILE].c_str());
+		}
+
+		QFile file;
+		file.readInputTXT(path[1]);
+		file.saveOutputTXT(path[2]);
+
 		/*QInt pos("51020811559739511523931749439", 10);
 		QInt neg("-2648426894534587", 10);
 
@@ -65,10 +74,6 @@ int main()
 
 		//cout << "Compare: " << (pos>neg) << endl;
 
-
-		QFile file;
-		file.readInputTXT("input.txt");
-		file.saveOutputTXT("output.txt");
 		//string tmp = QFile::processRecord(file[92]);
 		return 0;
 

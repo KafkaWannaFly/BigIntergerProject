@@ -153,6 +153,12 @@ string QInt::getHexaDecimal()
 	stringUpper(output);
 	std::reverse(output.begin(), output.end());
 	output = ltrim(output, '0');
+
+	if (output == "")
+	{
+		output += "0";
+	}
+
 	return output;
 }
 

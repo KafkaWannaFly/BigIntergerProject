@@ -93,7 +93,7 @@ QInt::QInt(const string& _num, const int& base)
 		string binNum;	//Xử lý từng chữ số thập lục phân
 		for (int i = 0; i < hexNum.length(); i++)
 		{
-			if (hexNum[i] > '0' && hexNum[i] < '9')
+			if (hexNum[i] >= '0' && hexNum[i] <= '9')
 			{
 				//Nếu char từ '0' -> '9' thì trừ 48 để có giá trị int phù hợp
 				bitset<4> tmp(hexNum[i] - 48);
@@ -369,27 +369,37 @@ QInt QInt::operator!()
 
 QInt QInt::operator<<(const unsigned int& num)
 {
+	if (num >= 128)
+	{
+		return *this;
+	}
+
 	QInt result = this->m_bits << num;
 	return result;
 }
 
 QInt QInt::operator>>(const unsigned int& num)
 {
-	if (this->m_bits[this->m_bits.size() - 1] == 0)
+	if (num >= 128)
 	{
-		QInt out = this->m_bits >> num;
-		return out;
+		return *this;
 	}
-	else
+
+	size_t sign = this->m_bits[this->m_bits.size() - 1];
+	QInt res = *this;
+	res.m_bits = res.m_bits >> num;
+
+	for (int i = res.m_bits.size() - 1; i > res.m_bits.size() - 1 - num; i--)
 	{
-		QInt out = this->m_bits >> num;
-		out.m_bits[this->m_bits.size() - 1] = 1;
-		return out;
+		res.m_bits[i] = sign;
 	}
+
+	return res;
 }
 
 bool QInt::operator[](const size_t& index)
 {
+
 	if (index >= this->m_bits.size())
 	{
 		throw exception(sExceptionsDictionary[exceptionKey::INDEX_OUT_OF_BOUND].c_str());

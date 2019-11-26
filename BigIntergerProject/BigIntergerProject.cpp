@@ -74,7 +74,17 @@ int main(int argu, char** path)
 
 		//cout << "Compare: " << (pos>neg) << endl;
 
-		//string tmp = QFile::processRecord(file[92]);
+		/*QInt qNum("-131861381546584684", 10);
+		QInt res = qNum << 0;
+
+		cout << qnum.getdecimal() << endl;
+		cout << qnum.getbits() << endl;
+		cout << res.getBits() << endl;
+		cout << res.getDecimal() << endl;*/
+
+		/*QFile file;
+		file.readInputTXT("input.txt");
+		file.saveOutputTXT("output.txt");*/
 		return 0;
 
 	}

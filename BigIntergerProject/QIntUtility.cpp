@@ -1,4 +1,6 @@
-#include "QIntUtility.h"
+
+#include"QIntUtility.h"
+
 
 void numToRBits(const std::string& num, string& bits)
 {
@@ -47,10 +49,11 @@ void binaryTwoComplements(bitset<128>& bits)
 			bits[i] = bits[i] ^ tmp;
 		}
 		i++;
-	} while (tmp != 0 && i <= bits.count());
+	} while (tmp != 0 && i <= bits.size());
 }
 
-void CutDecimal(string &S)
+
+void CutDecimal(string& S)
 {
 	string S_temp;
 	for (int i = 0; i < (S.length() - 7); i++)
@@ -59,7 +62,8 @@ void CutDecimal(string &S)
 	}
 	S = S_temp;
 }
-void Split_String(vector<string> &S, const string &Bits)
+
+void Split_String(vector<string>& S, const string& Bits)
 {
 	int check = 0;
 	string s_temp;
@@ -71,13 +75,14 @@ void Split_String(vector<string> &S, const string &Bits)
 		{
 			check = 1;
 		}
-		s_temp = to_string(check*pow(2, j));
+		s_temp = to_string(check * pow(2, j));
 		CutDecimal(s_temp);
 		S.push_back(s_temp);
 		j++;
 	}
 }
-void Push_String(string &s1, string &s2)
+
+void Push_String(string& s1, string& s2)
 {
 	if (s1.length() > s2.length())
 	{
@@ -96,7 +101,7 @@ void Push_String(string &s1, string &s2)
 		}
 	}
 }
-void Sum_String(string &sum, string s2)
+void Sum_String(string& sum, string s2)
 {
 	Push_String(sum, s2);
 	int sur = 0;
@@ -114,7 +119,7 @@ void Sum_String(string &sum, string s2)
 	}
 }
 
-void Sum_String2(string &sum, const string& s2)
+void Sum_String2(string& sum, const string& s2)
 {
 	//Push_String(sum, s2);
 	int sur = 0;
@@ -133,7 +138,7 @@ void Sum_String2(string &sum, const string& s2)
 }
 
 
-void Subtract_String(string &sub, string s2)
+void Subtract_String(string& sub, string s2)
 {
 	Push_String(sub, s2);
 	int sur = 0;
@@ -170,13 +175,8 @@ void Subtract_String(string &sub, string s2)
 	SUB.erase(0, i_check);
 	sub = '-' + SUB;
 }
-void Convert_Binary_Decimal(string &Dec, const string& Bits)
+void Convert_Binary_Decimal(string& Dec, const string& Bits)
 {
-	if (Dec == "0" && Bits == "0")
-	{
-		Dec = "0";
-		return;
-	}
 	int radix1, radix2;
 
 	//loadDataBinaryTxT("input.txt", radix1, radix2);

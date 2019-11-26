@@ -1,8 +1,15 @@
 #include"QInt.h"
-
 QInt::QInt()
 {
 	this->m_bits = 0;
+}
+
+QInt::QInt(const QInt& bits)
+{
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		this->m_bits[i] = bits.m_bits[i];
+	}
 }
 
 QInt::QInt(const bitset<128>& bits)
@@ -10,7 +17,15 @@ QInt::QInt(const bitset<128>& bits)
 	this->m_bits = bits;
 }
 
-QInt::QInt(const string & bits)
+QInt::QInt(const bool& valueOfAllBits)
+{
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		this->m_bits[i] = valueOfAllBits;
+	}
+}
+
+QInt::QInt(const string& bits)
 {
 	bitset<128> bit(bits);
 	this->m_bits = bit;
@@ -20,8 +35,8 @@ QInt::QInt(const string& _num, const int& base)
 {
 	if (base == 2)
 	{
-		/*cout << "Is on construction" << endl;*/
-
+		bitset<128> tmp(_num);
+		this->m_bits = tmp;
 	}
 	else if (base == 10)
 	{
@@ -31,7 +46,7 @@ QInt::QInt(const string& _num, const int& base)
 			if (_num[i] > '9' || _num[i] < '0')
 			{
 				if (_num[i] != '-')
-					throw exception(s_ExceptionsDictionary[exceptionKey::UNHANDLED_CHARACTER].c_str());
+					throw exception(sExceptionsDictionary[exceptionKey::UNHANDLED_CHARACTER].c_str());
 			}
 		}
 
@@ -69,7 +84,7 @@ QInt::QInt(const string& _num, const int& base)
 			{
 				if (hexNum[i] < 'A' || hexNum[i] > 'F')
 				{
-					throw exception(s_ExceptionsDictionary[exceptionKey::UNHANDLED_CHARACTER].c_str());
+					throw exception(sExceptionsDictionary[exceptionKey::UNHANDLED_CHARACTER].c_str());
 				}
 			}
 		}
@@ -80,7 +95,7 @@ QInt::QInt(const string& _num, const int& base)
 			if (hexNum[i] > '0' && hexNum[i] < '9')
 			{
 				//Nếu char từ '0' -> '9' thì trừ 48 để có giá trị int phù hợp
-				bitset<4> tmp(hexNum[i] - 48);	
+				bitset<4> tmp(hexNum[i] - 48);
 				binNum += tmp.to_string();
 			}
 			else
@@ -97,8 +112,15 @@ QInt::QInt(const string& _num, const int& base)
 	}
 	else
 	{
-		throw exception(s_ExceptionsDictionary[exceptionKey::WRONG_BASE].c_str());
+		throw exception(sExceptionsDictionary[exceptionKey::WRONG_BASE].c_str());
 	}
+}
+
+void QInt::doTwoComplements()
+{
+	bitset<128> bits = this->m_bits;
+	binaryTwoComplements(bits);
+	this->m_bits = bits;
 }
 
 string QInt::getBits()
@@ -111,7 +133,7 @@ string QInt::getBits()
 	return bits;
 }
 
-string QInt::getHexa()
+string QInt::getHexaDecimal()
 {
 	stringstream ss;
 	ss << std::hex;
@@ -145,6 +167,13 @@ size_t QInt::getSize()
 	return this->m_bits.size();
 }
 
+QInt QInt::getTwoComplements()
+{
+	bitset<128> bits(this->getBits());
+	binaryTwoComplements(bits);
+	return QInt(bits);
+}
+
 void QInt::rotateLeft(const unsigned int& num)
 {
 	this->m_bits = (this->m_bits << num) | (this->m_bits >> (128 - num));
@@ -155,13 +184,16 @@ void QInt::rotateRight(const unsigned int& num)
 	this->m_bits = (this->m_bits >> num) | (this->m_bits << (128 - num));
 }
 
-QInt & QInt::operator=(const QInt & qNum)
+QInt& QInt::operator=(const QInt& qNum)
 {
-	this->m_bits = qNum.m_bits;
+	for (int i = 0; i < this->m_bits.size(); i++)
+	{
+		this->m_bits[i] = qNum.m_bits[i];
+	}
 	return *this;
 }
 
-QInt QInt::operator+(const QInt & qNum)
+QInt QInt::operator+(const QInt& qNum)
 {
 	QInt sum;
 	bool carry = 0;
@@ -172,28 +204,41 @@ QInt QInt::operator+(const QInt & qNum)
 	{
 		int tmp = this->m_bits[i] + qNum.m_bits[i] + carry;
 		carry = tmp / 2;
-		sum.m_bits[i] = tmp % 2; 
+		sum.m_bits[i] = tmp % 2;
 	}
 	return sum;
 }
 
-QInt QInt::operator-(const QInt & qNum)
+QInt QInt::operator-(const QInt& qNum)
 {
-	//if(qNum)
-	bitset<128> twoComplement(qNum.m_bits);
-	binaryTwoComplements(twoComplement);
-	QInt contrastQNum(twoComplement);
+	QInt result;
 
-	return (*this + contrastQNum);
+	//if (qNum.m_bits[qNum.m_bits.size() - 1] == 0)
+	//{
+	//	bitset<128> twoComplement(qNum.m_bits);
+	//	binaryTwoComplements(twoComplement);
+	//	QInt contrastQNum(twoComplement);
+	//	result = *this + contrastQNum;
+	//}
+	//else
+	//{
+	//	result = *this + qNum;
+	//}
+
+	//bitset<128> twoComplement(qNum.m_bits);
+	//binaryTwoComplements(twoComplement);
+	QInt contrastQNum = qNum;
+	contrastQNum.doTwoComplements();
+	result = (*this) + contrastQNum;
+
+	return result;
 }
 
 QInt QInt::operator*(QInt& qNum)
 {
-	QInt sum;
+	QInt sum, n;
 	bool carry = 0;
-	QInt n;
-	int k = 0;
-	int check1 = 0,check2 = 0;
+	int k = 0, check1 = 0, check2 = 0;
 	if (this->m_bits[127] == 1)
 	{
 		binaryTwoComplements(this->m_bits);
@@ -238,6 +283,66 @@ QInt QInt::operator*(QInt& qNum)
 	return sum;
 }
 
+QInt QInt::operator/(const QInt& qNum)
+{
+	if (QInt(0) == qNum)
+	{
+		throw exception(sExceptionsDictionary[exceptionKey::DIVIDE_ZERO].c_str());
+	}
+
+	QInt dividend = *this;	//Số bị chia
+	QInt divider = qNum;	//Số chia
+	/*
+	if(dividend > 0)
+		surplus = 0000...
+	else
+		surplus = 1111...
+	*/
+
+	//Chuyển về số dương để chia, yu1 chia xong thì lật lại
+	int toBeFlipped = 0;
+	if (dividend.m_bits[dividend.m_bits.size() - 1] == 1)	//dividend < 0
+	{
+		dividend.doTwoComplements();
+		toBeFlipped++;
+	}
+	if (divider.m_bits[divider.m_bits.size() - 1] == 1)	//divider < 0
+	{
+		divider.doTwoComplements();
+		toBeFlipped++;
+	}
+
+	QInt surplus(dividend.m_bits[this->m_bits.size() - 1]); //Số dư
+
+	int k = dividend.m_bits.size();
+	while (k > 0)
+	{
+		//Coi surplus và dividend như 1 chuỗi bit. Shift trái 1 bit
+		surplus = surplus << 1;
+		surplus.m_bits[0] = dividend.m_bits[dividend.m_bits.size() - 1];
+		dividend = dividend << 1;
+
+		surplus = surplus - divider;
+		if (surplus.m_bits[surplus.m_bits.size() - 1] == 1)	//surplus < 0
+		{
+			dividend.m_bits[0] = 0;
+			surplus = surplus + divider;
+		}
+		else
+		{
+			dividend.m_bits[0] = 1;
+		}
+		k--;
+	}
+
+	if (toBeFlipped % 2 == 1)
+	{
+		dividend.doTwoComplements();
+	}
+
+	return dividend;
+}
+
 QInt QInt::operator&(const QInt& qNum)
 {
 	return QInt(this->m_bits & qNum.m_bits);
@@ -245,34 +350,46 @@ QInt QInt::operator&(const QInt& qNum)
 
 QInt QInt::operator|(const QInt& qNum)
 {
-	return QInt(this->m_bits|qNum.m_bits);
+	return QInt(this->m_bits | qNum.m_bits);
 }
 
 QInt QInt::operator^(const QInt& qNum)
 {
-	return QInt(this->m_bits^qNum.m_bits);
+	return QInt(this->m_bits ^ qNum.m_bits);
 }
 
 QInt QInt::operator!()
 {
-	return QInt(this->m_bits.flip());
+	QInt tmp = *this;
+	return tmp.m_bits.flip();
 }
 
 QInt QInt::operator<<(const unsigned int& num)
 {
-	return QInt(this->m_bits<<num);
+	QInt result = this->m_bits << num;
+	return result;
 }
 
 QInt QInt::operator>>(const unsigned int& num)
 {
-	return QInt(this->m_bits>>num);
+	if (this->m_bits[this->m_bits.size() - 1] == 0)
+	{
+		QInt out = this->m_bits >> num;
+		return out;
+	}
+	else
+	{
+		QInt out = this->m_bits >> num;
+		out.m_bits[this->m_bits.size() - 1] = 1;
+		return out;
+	}
 }
 
-bool QInt::operator[](const unsigned int& index)
+bool QInt::operator[](const size_t& index)
 {
 	if (index >= this->m_bits.size())
 	{
-		throw exception(s_ExceptionsDictionary[exceptionKey::INDEX_OUT_OF_BOUND].c_str());
+		throw exception(sExceptionsDictionary[exceptionKey::INDEX_OUT_OF_BOUND].c_str());
 	}
 
 	return this->m_bits[index];
@@ -285,7 +402,7 @@ bool QInt::operator>(const QInt& qNum)
 	else if (this->m_bits[this->m_bits.size() - 1] > qNum.m_bits[this->m_bits.size() - 1])
 		return false;
 
-	bool switcher;
+	bool switcher = false;
 	for (int i = 0; i < this->m_bits.size() - 1; i++)
 	{
 		if (this->m_bits[i] > qNum.m_bits[i])

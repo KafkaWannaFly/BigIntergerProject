@@ -120,6 +120,7 @@ string QFile::processRecord(const QRecord& record)
 		else if (record.operation == ">>")
 		{
 			int num = stoi(record.values[1]);
+			//Kiểm tra num < 0 thì không dịch.
 			result = v1 >> num;
 		}
 		else if (record.operation == "<<")
@@ -152,7 +153,7 @@ string QFile::processRecord(const QRecord& record)
 	}
 	else	//Have 1 value to do
 	{
-		QInt v1(record.values[0], base);
+		QInt v1(record.values[0], base); //v1("16151561651",16)
 
 		if (record.operation != "")	//Have operation to do
 		{
@@ -198,7 +199,7 @@ string QFile::processRecord(const QRecord& record)
 			else
 			{
 				//cout << result.getHexaDecimal() << endl;
-				return result.getHexaDecimal();
+				return result.getHexaDecimal(); 
 			}
 		}
 	}

@@ -73,7 +73,7 @@ QInt::QInt(const string& _num, const int& base)
 			this->m_bits = tmp;
 		}
 	}
-	else if (base == 16)
+	else if (base == 16) //FIX Ở ĐÂY
 	{
 		//Kiểm tra đầu vào
 		string hexNum = _num;
@@ -92,7 +92,7 @@ QInt::QInt(const string& _num, const int& base)
 		string binNum;	//Xử lý từng chữ số thập lục phân
 		for (int i = 0; i < hexNum.length(); i++)
 		{
-			if (hexNum[i] > '0' && hexNum[i] < '9')
+			if (hexNum[i] >= '0' && hexNum[i] <= '9')
 			{
 				//Nếu char từ '0' -> '9' thì trừ 48 để có giá trị int phù hợp
 				bitset<4> tmp(hexNum[i] - 48);
@@ -105,7 +105,7 @@ QInt::QInt(const string& _num, const int& base)
 				bitset<4> tmp(hexNum[i] - 55);
 				binNum += tmp.to_string();
 			}
-		}
+ 		}
 
 		//std::reverse(binNum.begin(), binNum.end());
 		this->m_bits = bitset<128>(binNum);
@@ -372,6 +372,7 @@ QInt QInt::operator<<(const unsigned int& num)
 
 QInt QInt::operator>>(const unsigned int& num)
 {
+
 	if (this->m_bits[this->m_bits.size() - 1] == 0)
 	{
 		QInt out = this->m_bits >> num;
@@ -380,7 +381,10 @@ QInt QInt::operator>>(const unsigned int& num)
 	else
 	{
 		QInt out = this->m_bits >> num;
-		out.m_bits[this->m_bits.size() - 1] = 1;
+		for (int i = m_bits.size() - 1; i >= m_bits.size() - num; i--)
+		{
+			out.m_bits[i] = 1;
+		}
 		return out;
 	}
 }

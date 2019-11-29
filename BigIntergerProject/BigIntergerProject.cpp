@@ -17,6 +17,7 @@ int main(int argu, char** path)
 		{	
 			throw exception(sExceptionsDictionary[exceptionKey::CANT_OPEN_FILE].c_str());
 		}
+
 		QFile file;
 		file.readInputTXT(path[1]);
 		file.saveOutputTXT(path[2]);

@@ -8,6 +8,8 @@
 |Đào Việt Hoàng|18127101|
 ## <u>Môi trường lập trình</u>
 
+Visual Studio 2017 (v141)
+
 Visual Studio 2019 (v142)
 
 ISO C++ 17 Standard (std:c++17)
@@ -41,7 +43,33 @@ Nhờ kinh nghiệm tích lũy từ các đồ án môn học trước mà nhóm
 
 	![image-20191118213534406](../../../Typora/TyporaImageCustomFolder/image-20191118213534406.png)
 
-## <u>Tỷ lệ hoàn thành</u>
+## <u>Các chức năng</u>
+
+### 0. Tóm tắt
+
+![](../../../Typora/TyporaImageCustomFolder/image-20191127110716668.png)
+
+Vì dữ liệu dưới dạng `bitset` nên constructor sẽ chịu trách nhiệm chuyển đổi mọi số sang hệ 2 và thực hiện các tác vụ trong hệ này (vd: cộng, trừ, nhân, chia,...). Khi nào muốn hiển thị kết quả thì sử dụng các hàm `getBits`, `getDecimal`, `getHexaDecimal` để lấy.
+
+### 1. Chuyển đổi giữa các hệ 2, 10, 16
+
+![image-20191127104919411](../../../Typora/TyporaImageCustomFolder/image-20191127104919411.png)
+
+### 2. Cộng, trừ, nhân, chia
+
+![image-20191127105623412](../../../Typora/TyporaImageCustomFolder/image-20191127105623412.png)
+
+### 3. AND, OR, XOR, NOT, bù 2
+
+![image-20191127105034890](../../../Typora/TyporaImageCustomFolder/image-20191127105034890.png)
+
+### 4. Dịch trái, dịch phải, xoay bit
+
+![image-20191127105232354](../../../Typora/TyporaImageCustomFolder/image-20191127105232354.png)
+
+## <u>Đánh giá</u>
+
+Sau nhiều lần thử và sai, tỷ lệ hoàn thành đồ án là 100%. Tuy còn xuất hiện 1 số ["hiện tượng lạ"](https://github.com/tarzanchemgio/BigIntergerProject/issues/1) không thể giải thích nhưng nếu viết code đúng cách thì đảm bảo an toàn.
 
 ## <u>Các nguồn tham khảo</u>
 

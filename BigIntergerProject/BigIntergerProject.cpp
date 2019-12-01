@@ -19,7 +19,7 @@ int main(int argu, char** path)
 		}
 		QFile file;
 		file.readInputTXT(path[1]);
-		file.saveOutputTXT(path[2]);
+		file.saveOutputTXT(path[2]);*/
 
 		//cout << std::hex << 156;
 
@@ -35,7 +35,7 @@ int main(int argu, char** path)
 
 		cout << ">HEXA-DECIMAL" << endl;
 		cout << "v1 = " << pos.getHexaDecimal() << endl;
-		cout << "v2 = " << neg.getHexaDecimal() << endl;*/
+		cout << "v2 = " << neg.getHexaDecimal() << endl;
 
 		/*pos.rotateRight(1);
 		cout << "v1 ror 1 = \n   " << pos << endl;
@@ -86,5 +86,4 @@ int main(int argu, char** path)
 	{
 		cout << e.what();
 	}
-
 }

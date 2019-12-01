@@ -19,7 +19,7 @@ int main(int argu, char** path)
 		}
 		QFile file;
 		file.readInputTXT(path[1]);
-		file.saveOutputTXT(path[2]);*/
+		file.saveOutputTXT(path[2]);
 
 		//cout << std::hex << 156;
 

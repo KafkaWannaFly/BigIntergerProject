@@ -239,27 +239,33 @@ QInt QInt::operator*(QInt& qNum)
 	QInt sum, n;
 	bool carry = 0;
 	int k = 0, check1 = 0, check2 = 0;
-	if (this->m_bits[127] == 1)
+	if (this->m_bits[127] == 1) //xử lý số âm
 	{
-		binaryTwoComplements(this->m_bits);
+		binaryTwoComplements(this->m_bits); //chuyển về số dương
 		check1 = 1;
 	}
-	if (qNum.m_bits[127] == 1)
+	if (qNum.m_bits[127] == 1) //xử lý số âm
 	{
-		binaryTwoComplements(qNum.m_bits);
-		check2 = 2;
+		binaryTwoComplements(qNum.m_bits); //chuyển về số dương
 	}
 	for (int i = 0; i < this->m_bits.size(); i++)
 	{
+		//1111
+		//1010
+		//0000
+		//111
+		//...
+		//Nhân
 		if (qNum.m_bits[i] == 1)
 		{
-			n = *this;
+			n = *this; 
 		}
 		else if (qNum.m_bits[i] == 0)
 		{
 			n.m_bits = 0;
 		}
 		int j = 0;
+		//Cộng
 		for (int i = 0; i < this->m_bits.size(); i++)
 		{
 			if (i >= k)
@@ -274,11 +280,11 @@ QInt QInt::operator*(QInt& qNum)
 	}
 	if (check1 == 1 && check2 == 2)
 	{
-		return sum;
+		return sum; //cả 2 cùng âm => return sum dương
 	}
 	else if (check1 == 1 || check2 == 2)
 	{
-		binaryTwoComplements(sum.m_bits);
+		binaryTwoComplements(sum.m_bits); //1 trong 2 âm => đổi sum thành âm
 	}
 	return sum;
 }

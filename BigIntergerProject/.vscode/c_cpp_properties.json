@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "E:\\Visual Studio Community 2019\\Visual Studio Community 2019\\VC\\Tools\\MSVC\\14.24.28314\\atlmfc\\include",
+                "E:\\Visual Studio Community 2019\\Visual Studio Community 2019\\VC\\Tools\\MSVC\\14.24.28314\\include",
+                "E:\\Windows Kits\\10\\Include\\10.0.18362.0\\winrt",
+                "E:\\Windows Kits\\10\\Include\\10.0.18362.0\\ucrt",
+                "E:\\Windows Kits\\10\\Include\\10.0.18362.0\\cppwinrt\\winrt",
+                "E:\\Windows Kits\\10\\Include\\10.0.18362.0\\um",
+                "E:\\Windows Kits\\10\\Include\\10.0.18362.0\\shared"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "cppStandard": "c++17",
+            "cStandard": "c11"
+        }
+    ],
+    "version": 4
+}
